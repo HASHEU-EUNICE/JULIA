@@ -1,138 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<title>Mochila Escolar</title>
-
-<style>
-
-body{
-font-family: Arial, sans-serif;
-background: linear-gradient(135deg,#0d47a1,#1976d2,#64b5f6);
-margin:0;
-padding:0;
-color:white;
-}
-
-header{
-text-align:center;
-padding:20px;
-font-size:28px;
-font-weight:bold;
-}
-
-.container{
-width:90%;
-max-width:800px;
-margin:auto;
-background:#1565c0;
-padding:20px;
-border-radius:15px;
-box-shadow:0 0 15px rgba(0,0,0,0.3);
-}
-
-textarea{
-width:100%;
-height:100px;
-border:none;
-border-radius:10px;
-padding:10px;
-font-size:16px;
-}
-
-button{
-margin-top:10px;
-padding:10px 20px;
-border:none;
-border-radius:10px;
-background:#42a5f5;
-color:white;
-font-size:16px;
-cursor:pointer;
-}
-
-button:hover{
-background:#1e88e5;
-}
-
-.note{
-background:#bbdefb;
-color:#0d47a1;
-padding:10px;
-margin-top:10px;
-border-radius:10px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.delete{
-background:#0d47a1;
-color:white;
-border:none;
-padding:5px 10px;
-border-radius:8px;
-cursor:pointer;
-}
-
-</style>
-</head>
-
-<body>
-
-<header>🎒 Mochila de Anotações Escolares</header>
-
-<div class="container">
-
-<textarea id="noteInput" placeholder="Escreva sua anotação escolar aqui..."></textarea>
-
-<button onclick="addNote()">Guardar na Mochila</button>
-
-<div id="notes"></div>
-
-</div>
-
-<script>
-
-let notes = JSON.parse(localStorage.getItem("notes")) || [];
-
-function renderNotes(){
-const notesDiv = document.getElementById("notes");
-notesDiv.innerHTML="";
-
-notes.forEach((note,index)=>{
-notesDiv.innerHTML += `
-<div class="note">
-<span>${note}</span>
-<button class="delete" onclick="deleteNote(${index})">Excluir</button>
-</div>
-`;
-});
-
-}
-
-function addNote(){
-const input = document.getElementById("noteInput");
-if(input.value.trim() === "") return;
-
-notes.push(input.value);
-localStorage.setItem("notes",JSON.stringify(notes));
-input.value="";
-renderNotes();
-}
-
-function deleteNote(index){
-notes.splice(index,1);
-localStorage.setItem("notes",JSON.stringify(notes));
-renderNotes();
-}
-
-renderNotes();
-
-</script>
-
-</body>
-  ```html
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -142,71 +8,73 @@ renderNotes();
 <style>
 
 body{
-font-family: Arial;
 margin:0;
-background: linear-gradient(135deg,#0d47a1,#1565c0,#64b5f6);
+font-family:Arial;
+background:linear-gradient(135deg,#0d47a1,#1565c0,#64b5f6);
 color:white;
 }
 
 header{
-text-align:center;
-padding:20px;
-font-size:28px;
-font-weight:bold;
-}
-
-.tabs{
 display:flex;
-flex-wrap:wrap;
-justify-content:center;
+justify-content:space-between;
+align-items:center;
+padding:15px;
 background:#0d47a1;
-padding:10px;
 }
 
-.tab{
-background:#1e88e5;
-border:none;
-margin:4px;
-padding:10px 15px;
-border-radius:10px;
-cursor:pointer;
-color:white;
-}
-
-.tab:hover{
-background:#42a5f5;
+h1{
+margin:0;
+font-size:24px;
 }
 
 .container{
-width:90%;
-max-width:800px;
-margin:20px auto;
-background:#1565c0;
-padding:20px;
-border-radius:15px;
+display:flex;
+height:90vh;
 }
 
-h2{
-text-align:center;
+.sidebar{
+width:230px;
+background:#0d47a1;
+overflow-y:auto;
+padding:10px;
+}
+
+.folder{
+background:#1e88e5;
+padding:10px;
+margin:5px 0;
+border-radius:8px;
+cursor:pointer;
+}
+
+.folder:hover{
+background:#42a5f5;
+}
+
+.main{
+flex:1;
+padding:20px;
+background:#1565c0;
+display:flex;
+flex-direction:column;
 }
 
 textarea{
-width:100%;
-height:100px;
-border-radius:10px;
+flex:1;
 border:none;
+border-radius:10px;
 padding:10px;
 font-size:16px;
+resize:none;
 }
 
 button{
-margin-top:10px;
-padding:10px 20px;
+margin-top:8px;
+padding:8px 12px;
 border:none;
-border-radius:10px;
+border-radius:8px;
 background:#42a5f5;
 color:white;
-font-size:16px;
 cursor:pointer;
 }
 
@@ -214,155 +82,230 @@ button:hover{
 background:#1e88e5;
 }
 
-.note{
-background:#bbdefb;
-color:#0d47a1;
-padding:10px;
-margin-top:10px;
-border-radius:10px;
-display:flex;
-justify-content:space-between;
+.topbar{
+margin-bottom:10px;
 }
 
-.delete{
-background:#0d47a1;
-color:white;
+input{
+padding:6px;
+border-radius:6px;
 border:none;
-padding:5px 10px;
-border-radius:8px;
-cursor:pointer;
 }
+
+.agenda{
+margin-top:10px;
+background:#1e88e5;
+padding:10px;
+border-radius:10px;
+}
+
+.dark{
+background:#121212;
+}
+
+.dark .sidebar{background:#1f1f1f}
+.dark .main{background:#2b2b2b}
+.dark .folder{background:#333}
 
 </style>
 </head>
 
 <body>
 
-<header>🎒 Mochila Escolar Digital</header>
-
-<div class="tabs" id="tabs"></div>
+<header>
+<h1>🎒 Mochila Escolar</h1>
+<button onclick="toggleDark()">🌙 Tema</button>
+</header>
 
 <div class="container">
 
-<h2 id="materiaTitulo"></h2>
+<div class="sidebar" id="folders"></div>
 
-<textarea id="noteInput" placeholder="Escreva sua anotação..."></textarea>
+<div class="main">
 
-<button onclick="addNote()">Guardar na Mochila</button>
+<div class="topbar">
 
-<div id="notes"></div>
+<h2 id="folderTitle"></h2>
+
+<input id="search" placeholder="Pesquisar..." onkeyup="searchNotes()">
+
+<br>
+
+<button onclick="saveNotes()">Salvar</button>
+<button onclick="renameFolder()">Renomear Pasta</button>
+
+</div>
+
+<textarea id="notes"></textarea>
+
+<div class="agenda">
+
+<h3>📅 Agenda Escolar</h3>
+
+<input id="agendaInput" placeholder="Adicionar tarefa">
+<button onclick="addAgenda()">Adicionar</button>
+
+<ul id="agendaList"></ul>
+
+</div>
+
+</div>
 
 </div>
 
 <script>
 
-const materias = [
-"Matemática",
-"Português",
-"História",
-"Geografia",
-"Biologia",
-"Química",
-"Física",
-"Inglês",
-"Lógica de Programação",
-"POO Java",
-"AMC",
-"Noção de Robótica",
-"Programação Web",
-"Sistemas Operacionais"
-];
+let folders = JSON.parse(localStorage.getItem("folders"));
 
-let materiaAtual = materias[0];
+if(!folders){
 
-function criarAbas(){
+folders=[];
 
-const tabs = document.getElementById("tabs");
+for(let i=1;i<=21;i++){
+folders.push({name:"Pasta "+i,notes:""});
+}
 
-materias.forEach(m=>{
-const btn = document.createElement("button");
-btn.innerText = m;
-btn.className="tab";
-btn.onclick=()=>selecionarMateria(m);
-tabs.appendChild(btn);
-});
+localStorage.setItem("folders",JSON.stringify(folders));
 
 }
 
-function selecionarMateria(m){
+let agenda = JSON.parse(localStorage.getItem("agenda")) || [];
 
-materiaAtual = m;
+let current=0;
 
-document.getElementById("materiaTitulo").innerText = m;
+function renderFolders(){
 
-renderNotes();
+let div=document.getElementById("folders");
 
-}
+div.innerHTML="";
 
-function getNotes(){
+folders.forEach((f,i)=>{
 
-return JSON.parse(localStorage.getItem(materiaAtual)) || [];
+let item=document.createElement("div");
 
-}
+item.className="folder";
 
-function saveNotes(notes){
+item.innerText=f.name;
 
-localStorage.setItem(materiaAtual,JSON.stringify(notes));
+item.onclick=()=>openFolder(i);
 
-}
-
-function renderNotes(){
-
-const notesDiv = document.getElementById("notes");
-notesDiv.innerHTML="";
-
-let notes = getNotes();
-
-notes.forEach((note,index)=>{
-
-notesDiv.innerHTML += `
-<div class="note">
-<span>${note}</span>
-<button class="delete" onclick="deleteNote(${index})">Excluir</button>
-</div>
-`;
+div.appendChild(item);
 
 });
 
 }
 
-function addNote(){
+function openFolder(i){
 
-const input = document.getElementById("noteInput");
+current=i;
 
-if(input.value.trim()=="") return;
+document.getElementById("folderTitle").innerText=folders[i].name;
 
-let notes = getNotes();
+document.getElementById("notes").value=folders[i].notes;
 
-notes.push(input.value);
+}
 
-saveNotes(notes);
+function saveNotes(){
+
+folders[current].notes=document.getElementById("notes").value;
+
+localStorage.setItem("folders",JSON.stringify(folders));
+
+alert("Salvo!");
+
+}
+
+function renameFolder(){
+
+let name=prompt("Novo nome da pasta:");
+
+if(name){
+
+folders[current].name=name;
+
+localStorage.setItem("folders",JSON.stringify(folders));
+
+renderFolders();
+
+openFolder(current);
+
+}
+
+}
+
+function searchNotes(){
+
+let text=document.getElementById("search").value.toLowerCase();
+
+let note=document.getElementById("notes");
+
+let content=folders[current].notes;
+
+if(content.toLowerCase().includes(text)){
+
+note.style.background="#e3f2fd";
+
+}else{
+
+note.style.background="white";
+
+}
+
+}
+
+function toggleDark(){
+
+document.body.classList.toggle("dark");
+
+}
+
+function renderAgenda(){
+
+let ul=document.getElementById("agendaList");
+
+ul.innerHTML="";
+
+agenda.forEach((a,i)=>{
+
+let li=document.createElement("li");
+
+li.innerHTML=a+" <button onclick='removeAgenda("+i+")'>x</button>";
+
+ul.appendChild(li);
+
+});
+
+}
+
+function addAgenda(){
+
+let input=document.getElementById("agendaInput");
+
+if(input.value=="") return;
+
+agenda.push(input.value);
+
+localStorage.setItem("agenda",JSON.stringify(agenda));
 
 input.value="";
 
-renderNotes();
+renderAgenda();
 
 }
 
-function deleteNote(index){
+function removeAgenda(i){
 
-let notes = getNotes();
+agenda.splice(i,1);
 
-notes.splice(index,1);
+localStorage.setItem("agenda",JSON.stringify(agenda));
 
-saveNotes(notes);
-
-renderNotes();
+renderAgenda();
 
 }
 
-criarAbas();
-selecionarMateria(materias[0]);
+renderFolders();
+openFolder(0);
+renderAgenda();
 
 </script>
 
@@ -370,4 +313,3 @@ selecionarMateria(materias[0]);
 </html>
 ```
 
-</html>
